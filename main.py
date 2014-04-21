@@ -1,9 +1,13 @@
-from flask import Flask
-app = Flask(__name__)
+from lib.bootstrap import Bootstrap
+import argparse
 
-@app.route("/")
-def hello():
-    return "Test"
+parser = argparse.ArgumentParser(description='HAL command line options.')
+parser.add_argument('--port', dest='port',
+                   help="port on which web server will run.")
+                   
+arguments = parser.parse_args()
+if not arguments.port:
+    raise Exception('--port command line option is mandatory')
 
-if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=80, debug=True)
+bootstrap = Bootstrap(int(arguments.port), 'default')
+registry = bootstrap.bootstrap()
