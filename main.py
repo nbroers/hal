@@ -10,4 +10,4 @@ if not arguments.port:
     raise Exception('--port command line option is mandatory')
 
 bootstrap = Bootstrap(int(arguments.port), 'default')
-registry = bootstrap.bootstrap()
+bootstrap.bootstrap()

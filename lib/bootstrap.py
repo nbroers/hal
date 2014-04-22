@@ -6,8 +6,9 @@ logging, etc"""
 import logging
 import os
 from lib import log, config, alarm
-from flask import Flask
-from flask.ext import restful
+import tornado.ioloop
+import tornado.web
+from tornado import httpserver, ioloop
 
 class Bootstrap():
     """Bootstrap class that initializes application
@@ -67,7 +68,6 @@ class Bootstrap():
                 __file__ + '/../'))
         
     def _bootstrap_config(self):
-        
         self._bootstrap_action('project_path')
         self.registry['config'] = config.Config([self.registry['project_path'] + '/config/application.default.cfg'],
                                     [self.registry['project_path'] + '/config/application.local.cfg'],
@@ -86,16 +86,23 @@ class Bootstrap():
         logging.basicConfig(level=self.registry['config'].getint('log.level'), format=log_format)
         logger.addHandler(file_logger)
         logger = log.Log()
-        logger.info(__name__, 'HAL startup')
         self.registry['log'] = logger
 
     def _bootstrap_web_server(self):
-        self._bootstrap_action('project_path')
         self._bootstrap_action('config')
-        
-        app = Flask(__name__)
-        api = restful.Api(app)
+        self._bootstrap_action('log')
+
+        tornado_application = tornado.web.Application(
+            handlers=[
+                (r"/alarm_status", alarm.AlarmStatusHandler,
+                     dict(registry=self.registry)),              
+            ],
+            template_path=os.path.join(self.registry['project_path'], "templates"),
+            static_path=os.path.join(self.registry['project_path'], "static"),
+            ui_modules={}
+        )
     
-        api.add_resource(alarm.AlarmStatusResource, '/alarm_status')
-        
-        app.run(debug=True, host='0.0.0.0', port=self.port)
+        http_server = httpserver.HTTPServer(tornado_application, xheaders=True)
+        http_server.listen(self.port)
+        self.registry['log'].info(__name__, 'HAL startup')
+        ioloop.IOLoop.instance().start()

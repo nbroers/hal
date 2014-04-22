@@ -1,11 +1,8 @@
 #install PIP
 sudo apt-get install python-pip
 
-#Install Flask
-sudo pip install flask
-
-#Install Flask-RESTful with pip
-pip install flask-restful
+#Install Tornado web server
+sudo pip install tornado
 
 #Clone the project source repo
 sudo git clone https://github.com/nbroers/hal.git

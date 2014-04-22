@@ -1,5 +1,5 @@
-from flask.ext import restful
+from lib import handler
 
-class AlarmStatusResource(restful.Resource):
+class AlarmStatusHandler(handler.Handler):
     def get(self):
-        return {'armed': True}
+        self.write({'armed': True})
