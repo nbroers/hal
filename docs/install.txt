@@ -9,7 +9,7 @@ sudo apt-get install python-pip
 #Install Tornado web server
 sudo pip install tornado
 
-#Install rpi.gpio - try this, otherwise try: sudo apt-get install python-rpi.gpio
+#Install rpi.gpio - should already be installed
 sudo pip install rpi.gpio
 
 #Clone the project source repo
