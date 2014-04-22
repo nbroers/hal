@@ -11,22 +11,22 @@ class Log():
     singleton. Using the log proxy, log objects can be mocked and injected into
     code under test.
     """
-    def debug(self, module, message, *args, **kwargs):
-        log = logging.getLogger(module)
+    def debug(self, message, *args, **kwargs):
+        log = logging.getLogger('HAL')
         return log.debug(message, *args, **kwargs)
 
-    def info(self, module, message, *args, **kwargs):
-        log = logging.getLogger(module)
+    def info(self, message, *args, **kwargs):
+        log = logging.getLogger('HAL')
         return log.info(message, *args, **kwargs)
 
-    def warning(self, module, message, *args, **kwargs):
-        log = logging.getLogger(module)
+    def warning(self, message, *args, **kwargs):
+        log = logging.getLogger('HAL')
         return log.warning(message, *args, **kwargs)
 
-    def error(self, module, message, *args, **kwargs):
-        log = logging.getLogger(module)
+    def error(self, message, *args, **kwargs):
+        log = logging.getLogger('HAL')
         return log.error(message, *args, **kwargs)
 
-    def exception(self, module, message, *args):
-        log = logging.getLogger(module)
+    def exception(self, message, *args):
+        log = logging.getLogger('HAL')
         return log.exception(message, *args)

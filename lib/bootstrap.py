@@ -82,7 +82,7 @@ class Bootstrap():
         file_logger = logging.FileHandler(filename=self.registry['config'].get('log.file'))
         file_logger.setLevel(self.registry['config'].getint('log.level'))
         file_logger.setFormatter(formatter)
-        logger = logging.getLogger(__name__)
+        logger = logging.getLogger('HAL')
         logging.basicConfig(level=self.registry['config'].getint('log.level'), format=log_format)
         logger.addHandler(file_logger)
         logger = log.Log()
@@ -104,5 +104,5 @@ class Bootstrap():
     
         http_server = httpserver.HTTPServer(tornado_application, xheaders=True)
         http_server.listen(self.port)
-        self.registry['log'].info(__name__, 'HAL startup')
+        self.registry['log'].info('HAL startup')
         ioloop.IOLoop.instance().start()
