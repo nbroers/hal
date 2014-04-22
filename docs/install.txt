@@ -1,8 +1,16 @@
+sudo apt-get update
+
+#python-dev if not installed yet
+sudo apt-get install python-dev
+
 #install PIP
 sudo apt-get install python-pip
 
 #Install Tornado web server
 sudo pip install tornado
+
+#Install rpi.gpio - try this, otherwise try: sudo apt-get install python-rpi.gpio
+sudo pip install rpi.gpio
 
 #Clone the project source repo
 sudo git clone https://github.com/nbroers/hal.git
