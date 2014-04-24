@@ -18,8 +18,9 @@ class AlarmStatusHandler(handler.Handler):
         # Set up the GPIO channel
         GPIO.setup(gpio_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
         
-        # IS alarm armed
-        is_armed = GPIO.input(gpio_pin)
+        # IS the alarm armed. Because of pull up resistor, a high value (1) 
+        # means the alarm is armed and a low (0) value indicates it is not 
+        is_armed = GPIO.input(gpio_pin) == 0
         
         GPIO.cleanup()
 
