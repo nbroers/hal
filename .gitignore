@@ -1,3 +1,4 @@
 /log
 /config/application.local.cfg
 *.pyc
+/images

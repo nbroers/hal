@@ -12,8 +12,8 @@ class AlarmStatusHandler(handler.Handler):
         if not gpio_pin:
             raise Exception('Configuration not set: gpio.alarm.armed.read')
             
-        # use P1 header pin numbering convention
-        GPIO.setmode(GPIO.BOARD)
+        # Use GPIO pin numbering scheme
+        GPIO.setmode(GPIO.BCM)
         
         # Set up the GPIO channel
         GPIO.setup(gpio_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
