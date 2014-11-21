@@ -12,7 +12,7 @@ def signal_term_handler(signal, frame):
 #Catch kill signal so we can do GPIO cleanup
 signal.signal(signal.SIGTERM, signal_term_handler)
 
-bootstrap = Bootstrap(None, 'default', ['config', 'log'])
+bootstrap = Bootstrap('default', ['config', 'log'])
 registry = bootstrap.bootstrap()
 
 bell_gpio_pin = None

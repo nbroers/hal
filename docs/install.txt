@@ -12,5 +12,9 @@ sudo pip install tornado
 #Install rpi.gpio - should already be installed
 sudo pip install rpi.gpio
 
+#Text to speech
+sudo pip install pyttsx
+
 #Clone the project source repo
 sudo git clone https://github.com/nbroers/hal.git
+

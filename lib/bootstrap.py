@@ -5,7 +5,7 @@ logging, etc"""
 
 import logging
 import os
-from lib import log, config, alarm
+from lib import log, config, alarm, text_to_speech
 import tornado.ioloop
 import tornado.web
 from tornado import httpserver, ioloop
@@ -15,10 +15,9 @@ class Bootstrap():
     
     Initializes application configuration, logging, database connections and
     everything else required by the application."""
-    def __init__(self, port=None, environment='default', actions=None):
+    def __init__(self, environment='default', actions=None):
         self.environment = environment
         self.registry = {}
-        self.port = port
         
         #Maintains a list of all the bootstrap actions available
         self._bootstrap_actions = ['project_path', 'config',
@@ -95,6 +94,8 @@ class Bootstrap():
         tornado_application = tornado.web.Application(
             handlers=[
                 (r"/alarm_status", alarm.AlarmStatusHandler,
+                     dict(registry=self.registry)),
+                (r"/text_to_speech", text_to_speech.TextToSpeechHandler,
                      dict(registry=self.registry)),              
             ],
             template_path=os.path.join(self.registry['project_path'], "templates"),
@@ -103,6 +104,6 @@ class Bootstrap():
         )
     
         http_server = httpserver.HTTPServer(tornado_application, xheaders=True)
-        http_server.listen(self.port)
+        http_server.listen(self.registry['config'].get('webserver.port'))
         self.registry['log'].info('HAL startup')
         ioloop.IOLoop.instance().start()

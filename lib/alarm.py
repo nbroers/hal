@@ -1,5 +1,11 @@
 from lib import handler
-import RPi.GPIO as GPIO
+
+try:
+    #only available on the Raspberry Pi. 
+    import RPi.GPIO as GPIO
+except:
+    #Rather let the GPIO code fail if called. 
+    pass
 
 class AlarmStatusHandler(handler.Handler):
     def get(self):
