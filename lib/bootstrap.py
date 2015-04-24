@@ -10,6 +10,7 @@ import tornado.ioloop
 import tornado.web
 from tornado import httpserver, ioloop
 
+
 class Bootstrap():
     """Bootstrap class that initializes application
     
@@ -71,7 +72,7 @@ class Bootstrap():
         self.registry['config'] = config.Config([self.registry['project_path'] + '/config/application.default.cfg'],
                                     [self.registry['project_path'] + '/config/application.local.cfg'],
                                      self.environment)
-
+        
     def _bootstrap_log(self):
         self._bootstrap_action('project_path')
         self._bootstrap_action('config')

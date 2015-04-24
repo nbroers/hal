@@ -12,6 +12,9 @@ sudo pip install tornado
 #Install rpi.gpio - should already be installed
 sudo pip install rpi.gpio
 
+#Backport of python 3 futures module, for Threadpool
+sudo pip install futures
+
 #Text to speech
 sudo pip install pyttsx
 
