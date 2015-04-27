@@ -5,7 +5,7 @@ logging, etc"""
 
 import logging
 import os
-from lib import log, config, alarm, text_to_speech
+from lib import log, config, alarm, text_to_speech, cache
 import tornado.ioloop
 import tornado.web
 from tornado import httpserver, ioloop
@@ -22,7 +22,7 @@ class Bootstrap():
         
         #Maintains a list of all the bootstrap actions available
         self._bootstrap_actions = ['project_path', 'config',
-                'log', 'web_server']
+                'log', 'cache', 'web_server']
                 
         #Keeps a dictionary by bootstrap action name as key and value 
         #is a boolean indicating if a bootstrap action has been performed
@@ -87,6 +87,14 @@ class Bootstrap():
         logger.addHandler(file_logger)
         logger = log.Log()
         self.registry['log'] = logger
+        
+    def _bootstrap_cache(self):
+        self._bootstrap_action('config')
+        
+        cache_enabled = self.registry['config'].getint('cache.enabled') > 0
+        if cache_enabled:
+            cache_handler_factory = cache.CacheHandlerFactory(self.registry)
+            self.registry['cache'] = cache_handler_factory.get_cache_handler()
 
     def _bootstrap_web_server(self):
         self._bootstrap_action('config')

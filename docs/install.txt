@@ -18,6 +18,10 @@ sudo pip install futures
 #Text to speech
 sudo pip install pyttsx
 
+#Memcache
+sudo apt-get install memcached
+sudo pip install python-memcached
+
 #Clone the project source repo
 sudo git clone https://github.com/nbroers/hal.git
 
